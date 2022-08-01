@@ -1,6 +1,6 @@
 import json
 import requests
-
+import os
 class pet_api:
     def __init__(self, url_path="https://petstore3.swagger.io/api/v3"):
         self._url_path_pet = url_path
@@ -88,8 +88,14 @@ class pet_api:
             return "There was an error processing your request"
 
     # upload an image.
-    def upload_img_by_id(self):
-        pass
+    def post_upload_img_by_id(self, pet_id: str, meta_data: str,peth_image: dict,):
+        res = self.session.post(url=f"{self._url_path_pet}/{pet_id}/uploadImage?additionalMetadata={meta_data}", data=peth_image)
+        if res.status_code == 200:
+            return res.json()
+        elif res.status_code == 404:
+            return "HTTP 404 Not Found"
+        elif res.status_code == 500:
+            return "There was an error processing your request"
 
 
 def main():
@@ -125,5 +131,6 @@ def main():
     print(pet2.get_pet_by_status("available"))
     # print(pet2.delete_pet_by_id(5))
     # print(pet2.get_pet_by_tags(20, "string"))
+    print(pet2.upload_img_by_id())
 if __name__ == "__main__":
     main()
