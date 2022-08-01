@@ -1,38 +1,27 @@
-import json
-from models.baseObject import baseObj
-
-from enum import Enum
-
-class Status(Enum):
-    available = "available"
-    pending = "pending"
-    sold = "sold"
 
 class Pet:
 
     def __init__(self, id, name, category=None, photoUrls=None, tags=None, status=None):
         self._photo_urls = None
         self._tags = None
-        self._status = None
+        self._status = status
         self._id = id
         self._name = name
         self._category = category
-        if photoUrls is not None:
-            self.photo_urls = photoUrls
-        if tags is not None:
-            self.tags = tags
-        if status is not None:
-            self.status = status
+        self._tags = tags
+        self._photo_urls = photoUrls
+
+
 
     @property
-    def id(self):
+    def get_id(self):
         """Gets the id of this Pet.  # noqa: E501
         :return: The id of this Pet.  # noqa: E501
         :rtype: int
         """
         return self._id
-    @id.setter
-    def id(self, id):
+    @get_id.setter
+    def set_id(self, id):
         """Sets the id of this Pet.
         :param id: The id of this Pet.  # noqa: E501
         :type: int
@@ -71,3 +60,11 @@ class Pet:
         :type: Category
         """
         self._category = category
+
+    @property
+    def photoUrls(self):
+        return self._photo_urls
+
+    @category.setter
+    def set_photoUrls(self, photo_url: dict):
+        self._photo_urls = photo_url

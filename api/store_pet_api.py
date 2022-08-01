@@ -10,42 +10,38 @@ class store_pet_api:
         self.session.headers.update(self.headrs)
 
     # return pet inventory by status.
-    def get_pet_inventory(self) -> dict or int:
+    def get_pet_inventory(self) -> dict or str:
         res = self.session.get(url=f"{self._url_path_pet}/store/inventory")
-        inventory = res.json()
         if res.status_code == 200:
-            return inventory
+            return res.json()
         else:
-            return res.status_code
+            return res.json()["message"]
 
     # place an order for a pet.
     def post_new_order(self, order_details: dict) -> dict or int:
-
         res = self.session.post(url=f"{self._url_path_pet}/store/order", data=order_details)
         if res.status_code == 200:
             return res.json()
         else:
-            return res.status_code
+            return res.json()["message"]
 
     # find purchase orders by order id.
     def get_purchase_by_order_id(self, order_id: int):
         res = self.session.get(url=f"{self._url_path_pet}/store/order/{order_id}")
-        purchase = res.json()
-
         if res.status_code == 200:
-            return purchase
+            return res.json()
         else:
-            return res.status_code
+            return res.json()["message"]
+
 
     # delete purchase order by id.
     def delete_purchase_order_by_id(self, order_id):
         res = self.session.delete(url=f"{self._url_path_pet}/store/order/{order_id}")
-
         if res.status_code == 200:
-            return "purchase is deleted"
-            # return res.content
+            return 'purchase is deleted'
         else:
-            return res.status_code
+            return res.json()["message"]
 
 store = store_pet_api()
+
 

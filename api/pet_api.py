@@ -19,6 +19,8 @@ class pet_api:
             return "Pet not found"
         elif res.status_code == 405:
             return "Validation exception"
+        elif res.status_code == 404:
+            return "HTTP 404 Not Found"
         else:
             "There was an error processing your request"
 
@@ -29,6 +31,8 @@ class pet_api:
             return res.json()
         elif res.status_code == 405:
             return "invalid input"
+        elif res.status_code == 404:
+            return "HTTP 404 Not Found"
         else:
             return "There was an error processing your request"
 
@@ -44,6 +48,8 @@ class pet_api:
             return "Invalid status value"
         elif res.status_code == 500:
             return "There was an error processing your request"
+        elif res.status_code == 404:
+            return "HTTP 404 Not Found"
 
     # find by tag.
     def get_pet_by_tags(self, tag_id: int, tag_name: str) -> dict or str:
@@ -54,6 +60,8 @@ class pet_api:
             return "invalid tag values"
         elif res.status_code == 500:
             return "There was an error processing your request"
+        elif res.status_code == 404:
+            return "HTTP 404 Not Found"
 
     # get pet by integer id.
     def get_pet_by_id(self, pet_id: str) -> dict or str:
@@ -64,6 +72,8 @@ class pet_api:
             return "pet not found"
         elif res.status_code == 405:
             return "invalid id supplied"
+        elif res.status_code == 404:
+            return "HTTP 404 Not Found"
         else:
             return "There was an error processing your request"
 
@@ -76,6 +86,8 @@ class pet_api:
             return "Invalid input"
         elif res.status_code == 500:
             return "There was an error processing your request"
+        elif res.status_code == 404:
+            return "HTTP 404 Not Found"
 
     # delete pet by id.
     def delete_pet_by_id(self, pet_id: int) -> str:
@@ -86,6 +98,8 @@ class pet_api:
             return "Invalid pet value"
         elif res.status_code == 500:
             return "There was an error processing your request"
+        elif res.status_code == 404:
+            return "HTTP 404 Not Found"
 
     # upload an image.
     def post_upload_img_by_id(self, pet_id: str, meta_data: str,peth_image: dict,):
@@ -128,9 +142,9 @@ def main():
     # print(type(pet2.put_update_existing_pet(pet3)))
     # print(pet3)
     # print(pet2.post_pet_by_id())
-    print(pet2.get_pet_by_status("available"))
+    print(pet2.get_pet_by_status("available")[0])
     # print(pet2.delete_pet_by_id(5))
     # print(pet2.get_pet_by_tags(20, "string"))
-    print(pet2.upload_img_by_id())
+    # print(pet2.upload_img_by_id())
 if __name__ == "__main__":
     main()

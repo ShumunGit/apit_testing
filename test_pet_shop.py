@@ -36,7 +36,7 @@ def test_get_by_id(get_available_pet):
         res = pet.get_pet_by_id(pet_id)
         if type(res) != type("abc"):
             my_pet = Pet(**res)
-            assert my_pet.id == pet_id, logging.error("pet id number {} is not found".format(pet_id))
+            assert my_pet._id == pet_id, logging.error("pet id number {} is not found".format(pet_id))
             logging.info("found the pet by id number {}".format(pet_id))
         else:
             logging.error(res)
@@ -56,7 +56,7 @@ def test_post_new_pet():
         if type(res) != type("abc"):
             # validate the new pet.
             res_pet = Pet(**res)
-            assert res_pet.id == pet_id, logging.error("pet not found")
+            assert res_pet._id == pet_id, logging.error("pet not found")
             logging.info("bimbo is added to the store")
         else:
             logging.error(res)
@@ -92,7 +92,7 @@ def test_post_pet_by_id(get_available_pet):
         res = pet.post_pet_by_id(pet_id, pet_name, pet_status)
         if type(res) != type("abc"):
             updated_pet = Pet(**res)
-            assert updated_pet.name == pet_name and updated_pet.id == pet_id and updated_pet.status == pet_status, logging.error("name is not updated")
+            assert updated_pet._name == pet_name and updated_pet._id == pet_id and updated_pet._status == pet_status, logging.error("name is not updated")
             logging.info(f"pet name is updated to {updated_pet.name}")
         else:
             logging.error(res)
@@ -112,16 +112,19 @@ def test_delete_pet_by_id():
 
 def test_get_pet_by_tags(get_available_pet):
     # get tag name and tage id from available pet.
-    tag_id = int(get_available_pet["tags"][0]["id"])
-    tag_name = get_available_pet["tags"][0]["name"]
-
-    res = pet.get_pet_by_tags(tag_id, tag_name)
+    # tag_id = get_available_pet["tags"][0]["id"]
+    # tag_name = get_available_pet["tags"][0]["name"]
+    print(get_available_pet["tags"])
+    """
+        res = pet.get_pet_by_tags(tag_id, tag_name)
     if type(res) != type("abc"):
         pet_with_tags = Pet(**res)
-        assert pet_with_tags.tags[0] == tag_id and pet_with_tags.tags == tag_name, logging.error("pet with not tags")
+        assert pet_with_tags._tags[0]["id"] == tag_id and pet_with_tags._tags[0]["name"] == tag_name, logging.error("pet with not tags")
         logging.info("pet with tags")
     else:
         logging.error(res)
+    """
+
 
 def test_post_upload_img_by_id(get_available_pet):
     pet_id = get_available_pet["id"]
@@ -133,7 +136,7 @@ def test_post_upload_img_by_id(get_available_pet):
     with open(peth_img, 'rb') as img:
         img_file = img.read()
         file["file"] = img_file
-    res = pet.post_upload_img_by_id(pet_id, meta_data, get_available_pet)
+    res = pet.post_upload_img_by_id(pet_id, meta_data, file)
     if type(res) != type("abc"):
         pet_with_img = Pet(**res)
         assert file["file"] not in pet_with_img, logging.error("pet not include image")
