@@ -12,7 +12,6 @@ def get_available_pet():
         return "invalid status value"
     return available_pets[0]
 
-
 def test_update_exsiting_pet(get_available_pet):
     # validate if pet.
     if type(get_available_pet) != type("abc"):

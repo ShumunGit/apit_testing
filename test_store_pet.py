@@ -3,7 +3,6 @@ from models.order import Order
 import pytest, logging, json, datetime
 from api.pet_api import pet_api
 
-
 def test_get_pet_inventory():
     res = store.get_pet_inventory()
     if type(res) != type("abc"):
@@ -24,7 +23,6 @@ def set_neworder():
     order_details = {"id": today.day*2, "petId": today.year, "quantity": 7, "shipDate": f"{today}",
                     "status": "approved", "complete": True}
     return order_details
-
 
 def test_post_new_order(set_neworder):
     pet_id = set_neworder["id"]

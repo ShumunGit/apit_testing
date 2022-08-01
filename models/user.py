@@ -1,5 +1,5 @@
-
-class User:
+from models.baseObject import baseObj
+class User(baseObj):
     def __init__(self, id: int, username: str, firstName: str, lastName: str, email: str, password: str, phone: str, userStatus: int):
         self._id = id
         self._username = username

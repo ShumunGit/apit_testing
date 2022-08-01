@@ -1,5 +1,6 @@
+from models.baseObject import baseObj
 
-class Pet:
+class Pet(baseObj):
 
     def __init__(self, id, name, category=None, photoUrls=None, tags=None, status=None):
         self._photo_urls = None
@@ -10,7 +11,6 @@ class Pet:
         self._category = category
         self._tags = tags
         self._photo_urls = photoUrls
-
 
 
     @property

@@ -8,6 +8,7 @@ def get_new_user():
                 "email": "Alexxx@gmail.com",
                 "password": "12345", "phone": "12345", "userStatus": 1}
     return new_user
+
 def test_post_create_new_user(get_new_user):
     res = user.post_create_new_user(get_new_user)
     if type(res) != type("abc"):
@@ -16,7 +17,6 @@ def test_post_create_new_user(get_new_user):
         logging.info("user is created in the DB")
     else:
         logging.error(res)
-
 def test_post_list_of_users(get_new_user):
     lst_users = [get_new_user]
     res = user.post_list_of_users(lst_users)

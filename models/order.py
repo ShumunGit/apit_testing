@@ -1,5 +1,5 @@
-
-class Order:
+from models.baseObject import baseObj
+class Order(baseObj):
     def __init__(self, id: int, petId: int, quantity: int, shipDate: str, status: str, complete: bool):
         self._id = id
         self._pet_id = petId
